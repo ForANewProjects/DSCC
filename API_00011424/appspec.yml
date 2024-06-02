@@ -1,0 +1,20 @@
+ version: 0.0
+os: linux
+files:
+  - source: workingapi/
+    destination: /var/www
+  - source: deployscripts/webapi.service
+    destination: /etc/systemd/system
+hooks:
+  BeforeInstall:
+    - location: deployscripts/before-install.sh
+      timeout: 300
+      runas: root
+  ApplicationStop:
+    - location: deployscripts/application-stop.sh
+      timeout: 300
+      runas: root
+  ApplicationStart:
+    - location: deployscripts/application-start.sh
+      timeout: 300
+      runas: root
